@@ -1,8 +1,7 @@
-fastapi
-uvicorn[standard]
 pandas
-scikit-learn
 numpy
 matplotlib
 seaborn
-pickle
+scikit-learn
+fastapi
+uvicorn[standard]
