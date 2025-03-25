@@ -1,10 +1,9 @@
 from fastapi import FastAPI
-from IPLBettingTool import IPLBettingTool  # Place your provided class in IPLBettingTool.py
+from IPLBettingTool import IPLBettingTool
 from pydantic import BaseModel
 
 app = FastAPI()
 
-# Initialize the betting tool once on server startup
 betting_tool = IPLBettingTool(data_path='matches.csv')
 
 class MatchPredictionRequest(BaseModel):
@@ -13,6 +12,10 @@ class MatchPredictionRequest(BaseModel):
     venue: str
     toss_winner: str
     toss_decision: str
+
+@app.get("/")
+async def root():
+    return {"message": "Welcome to IPL Betting Insights API!"}
 
 @app.post("/predict-match")
 async def predict_match(request: MatchPredictionRequest):
@@ -32,3 +35,4 @@ async def available_teams():
 @app.get("/available-venues")
 async def available_venues():
     return betting_tool.get_available_venues()
+
